@@ -80,7 +80,7 @@ export function RegisterForm() {
           id="email"
           type="email"
           autoComplete="email"
-          placeholder="you@company.com"
+          placeholder="you@example.com"
           className="h-11 rounded-xl px-3"
           {...register("email")}
         />
