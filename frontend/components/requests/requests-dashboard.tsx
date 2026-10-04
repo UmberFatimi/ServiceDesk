@@ -41,39 +41,75 @@ export async function RequestsDashboard({
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">
-          {isAdmin ? "All requests" : "My requests"}
-        </h1>
-        <Link href={`${basePath}/requests/new`} className={buttonVariants()}>
+    <div className="space-y-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="mb-2 text-sm font-semibold text-primary">
+            {isAdmin ? "Service overview" : "Your workspace"}
+          </p>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            {isAdmin ? "All requests" : "My requests"}
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {isAdmin
+              ? "Review and manage service requests across your team."
+              : "Keep an eye on your requests and their latest status."}
+          </p>
+        </div>
+        <Link
+          href={`${basePath}/requests/new`}
+          className={buttonVariants({
+            className:
+              "h-10 rounded-xl px-4 shadow-md shadow-primary/15 transition-transform hover:-translate-y-0.5",
+          })}
+        >
           New request
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
-        {summary.map(([label, count]) => (
-          <Card key={label}>
-            <CardContent className="p-4">
-              <p className="text-sm text-muted-foreground">{label}</p>
-              <p className="text-2xl font-semibold">{count}</p>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        {summary.map(([label, count], index) => (
+          <Card
+            key={label}
+            className="border-border/70 shadow-sm shadow-slate-950/[0.03] transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <CardContent className="p-4 sm:p-5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {label}
+              </p>
+              <p
+                className={`mt-2 text-3xl font-semibold tracking-tight ${
+                  index === 0 ? "text-primary" : ""
+                }`}
+              >
+                {count}
+              </p>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <RequestFilters />
+      <div className="rounded-2xl border border-border/70 bg-card p-4 shadow-sm shadow-slate-950/[0.03] sm:p-5">
+        <RequestFilters />
+      </div>
 
       {list.data.length === 0 ? (
-        <Card>
-          <CardContent className="py-12 text-center text-muted-foreground">
+        <Card className="border-dashed border-border shadow-none">
+          <CardContent className="py-14 text-center">
+            <p className="text-base font-medium text-foreground">
             {status || search
               ? "No requests match your filters."
               : "No requests yet. Create your first one!"}
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {status || search
+                ? "Try adjusting your search or selected status."
+                : "Your submitted requests will appear here."}
+            </p>
           </CardContent>
         </Card>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {list.data.map((r) => (
             <RequestCard
               key={r._id}

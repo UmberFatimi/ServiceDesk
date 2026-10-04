@@ -53,6 +53,8 @@ export function LoginForm() {
           id="email"
           type="email"
           autoComplete="email"
+          placeholder="you@company.com"
+          className="h-11 rounded-xl px-3"
           {...register("email")}
         />
         {errors.email && (
@@ -68,6 +70,8 @@ export function LoginForm() {
           id="password"
           type="password"
           autoComplete="current-password"
+          placeholder="Enter your password"
+          className="h-11 rounded-xl px-3"
           {...register("password")}
         />
         {errors.password && (
@@ -79,7 +83,11 @@ export function LoginForm() {
         <p className="text-sm text-destructive">{errors.root.message}</p>
       )}
 
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
+      <Button
+        type="submit"
+        className="mt-2 h-11 w-full rounded-xl shadow-md shadow-primary/15"
+        disabled={isSubmitting}
+      >
         {isSubmitting ? "Signing in..." : "Sign in"}
       </Button>
     </form>

@@ -64,7 +64,13 @@ export function RegisterForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
       <div className="space-y-2">
         <Label htmlFor="name">Full name</Label>
-        <Input id="name" autoComplete="name" {...register("name")} />
+        <Input
+          id="name"
+          autoComplete="name"
+          placeholder="Your name"
+          className="h-11 rounded-xl px-3"
+          {...register("name")}
+        />
         <Err msg={errors.name?.message} />
       </div>
 
@@ -74,6 +80,8 @@ export function RegisterForm() {
           id="email"
           type="email"
           autoComplete="email"
+          placeholder="you@company.com"
+          className="h-11 rounded-xl px-3"
           {...register("email")}
         />
         <Err msg={errors.email?.message} />
@@ -85,6 +93,8 @@ export function RegisterForm() {
           id="password"
           type="password"
           autoComplete="new-password"
+          placeholder="Create a password"
+          className="h-11 rounded-xl px-3"
           {...register("password")}
         />
         <Err msg={errors.password?.message} />
@@ -96,6 +106,8 @@ export function RegisterForm() {
           id="confirmPassword"
           type="password"
           autoComplete="new-password"
+          placeholder="Re-enter your password"
+          className="h-11 rounded-xl px-3"
           {...register("confirmPassword")}
         />
         <Err msg={errors.confirmPassword?.message} />
@@ -103,7 +115,11 @@ export function RegisterForm() {
 
       <Err msg={errors.root?.message} />
 
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
+      <Button
+        type="submit"
+        className="mt-1 h-11 w-full rounded-xl shadow-md shadow-primary/15"
+        disabled={isSubmitting}
+      >
         {isSubmitting ? "Creating account..." : "Create account"}
       </Button>
     </form>
