@@ -53,8 +53,7 @@ export function RequestForm({ mode, basePath, isAdmin, request }: Props) {
   });
 
   async function onSubmit(values: RequestInput) {
-    const {  ...rest } = values;
-    const payload = showStatus ? values : rest; 
+    const payload = showStatus ? values : { ...values, status: undefined };
 
     try {
       const saved =
